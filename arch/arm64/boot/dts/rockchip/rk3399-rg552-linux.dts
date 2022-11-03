@@ -33,28 +33,21 @@
 	};
 
 	volume-keys {
-		compatible = "gpio-keys";
-		autorepeat;
-		pinctrl-names = "default";
-		pinctrl-0 = <&vol_pwr_btn>;
+			compatible = "gpio-keys";
+			#address-cells = <1>;
+			#size-cells = <0>;
+			autorepeat;
+			button@0 {
+				label = "GPIO BTN-VOLUP";
+				linux,code = <KEY_VOLUMEUP>;
+				gpios = <&gpio3 RK_PB5 GPIO_ACTIVE_LOW>;
+			};
+			button@1 {
+				label = "GPIO BTN-VOLDN";
+				linux,code = <KEY_VOLUMEDOWN>;
+				gpios = <&gpio3 RK_PB6 GPIO_ACTIVE_LOW>;
+			};
 
-		sw1 {
-			debounce-interval = <100>;
-			gpios = <&gpio0 RK_PA5 GPIO_ACTIVE_LOW>;
-			label = "BTN PWR";
-			linux,code = <KEY_POWER>;
-			wakeup-source;
-		};
-		sw2 {
-			label = "BTN VOL+";
-			linux,code = <KEY_VOLUMEUP>;
-			gpios = <&gpio3 RK_PB5 GPIO_ACTIVE_LOW>;
-		};
-		sw3 {
-			label = "BTN VOL-";
-			linux,code = <KEY_VOLUMEDOWN>;
-			gpios = <&gpio3 RK_PB6 GPIO_ACTIVE_LOW>;
-		};
 	};
 
 	adc-keys {
@@ -1266,12 +1259,6 @@
 					<3 RK_PB0 RK_FUNC_GPIO &pcfg_pull_up>,
 					<3 RK_PB1 RK_FUNC_GPIO &pcfg_pull_up>,
 					<3 RK_PC0 RK_FUNC_GPIO &pcfg_pull_up>;
-		};
-		vol_pwr_btn: vol-pwr-btn {
-			rockchip,pins =
-					<0 RK_PA5 RK_FUNC_GPIO &pcfg_pull_up>,
-					<3 RK_PB5 RK_FUNC_GPIO &pcfg_pull_up>,
-					<3 RK_PB6 RK_FUNC_GPIO &pcfg_pull_up>;
 		};
 	};
 };
